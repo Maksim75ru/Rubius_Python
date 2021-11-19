@@ -25,6 +25,7 @@ class DeviceTestCase(unittest.TestCase):
         self.assertRaises(IOError, write_line, open_device('/devices/dev4'), '70RUS')
         word: Device = open_device('/devices/dev3')
         self.assertEqual('1', read_line(word))
+        write_line(word, 'TEst')
 
 
 if __name__ == '__main__':
