@@ -11,6 +11,13 @@ def __take_line(collection: List[str]) -> str:
         raise IOError('No more for reading')
 
 
+def __add_line(collection: List[str], my_line: str) -> str:
+    try:
+        return collection.append(my_line)
+    except IndexError:
+        raise IOError('No more for writing')
+
+
 @dataclass
 class Device:
     mode: DeviceMode
@@ -41,11 +48,11 @@ def read_line(device: Device) -> str:
     return __take_line(device.data)
 
 
-def write_line(device: Device) -> str:
+def write_line(device: Device, my_line: str) -> str:
     if not is_writable_device(device):
         raise PermissionError('Writing from the devices not allowed.')
 
-    return __take_line(device.data)
+    return __add_line(device.data, my_line)
 
 
 def open_device(name: str) -> Device:
@@ -59,10 +66,8 @@ def open_device(name: str) -> Device:
         '/devices/dev0': Device(DeviceMode.ReadOnly, ['line_1', 'line_2']),
         '/devices/dev1': Device(DeviceMode.WriteOnly, ['']),
         '/devices/dev2': Device(DeviceMode.ReadWrite, []),
-        '/devices/dev3': Device(DeviceMode.ReadWrite, ['1', '2', '**']),
+        '/devices/dev3': Device(DeviceMode.ReadWrite, ['1', '2', '**', 'TOMSK', 'MOSCOW']),
         '/devices/dev4': Device(DeviceMode.ReadOnly, ['line_1', 'line_2']),
-        '/devices/dev5': Device(DeviceMode.WriteOnly, ['line_1', 'line_2']),
-        '/devices/dev6': Device(DeviceMode.ReadOnly, ['']),
     }
 
     try:
