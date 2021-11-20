@@ -21,7 +21,7 @@ class DeviceTestCase(unittest.TestCase):
         self.assertEqual('line_1', read_line(open_device('/devices/dev4')))
 
     def test_write_line(self):
-        self.assertRaises(PermissionError, write_line, open_device('/devices/dev0'),'VOLGA')
+        self.assertRaises(PermissionError, write_line, open_device('/devices/dev0'), 'VOLGA')
         self.assertRaises(IOError, write_line, open_device('/devices/dev4'), '70RUS')
         word: Device = open_device('/devices/dev3')
         self.assertEqual('1', read_line(word))
