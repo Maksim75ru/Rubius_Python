@@ -25,8 +25,12 @@ class DeviceTestCase(unittest.TestCase):
         self.assertRaises(IOError, write_line, open_device('/devices/dev4'), '70RUS')
         word: Device = open_device('/devices/dev3')
         self.assertEqual('1', read_line(word))
-        write_line(word, 'Test')
-        self.assertEqual('1', read_line(open_device('/devices/dev3')), 'Test')
+
+        #Сравниваю свою строку с тем, что пришло в девайс
+        a: Device = open_device('/devices/dev2')
+        write_line(a, 'Test')
+        self.assertEqual('Test', read_line(a))
+
 
 
 if __name__ == '__main__':
