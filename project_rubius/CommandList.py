@@ -9,6 +9,12 @@ class Status(Enum):  # Нужно расписать подробнее и ук�
 
 
 @dataclass
+class Response:
+    status: Status
+    response: str
+
+
+@dataclass
 class Command:
     command: str
     parameters: List[str]
@@ -23,11 +29,15 @@ GLOBAL_COMMANDS = [
 ]
 
 
-def send_command(command: Command) -> Status:
-    if command.command == GLOBAL_COMMANDS[0].command:  # Написать норм код сюда нужно.Это для образца.Тут ничего не send'им, а просто определяем статус
-        return Status.Ok
+def get_all_files():  # Эта функция занимается логикой
+    return ["file_1.txt", "file_2.txt"]  # Тут харкодим. Нужно исправить/сделать ссылки на возврат файлов.
 
-    return Status.Error
+
+def send_command(command: Command) -> Response:  # Эта функция занимается обработкой
+    if command.command == GLOBAL_COMMANDS[0].command:  # Написать норм код сюда нужно.Это для образца.Тут ничего не send'им, а просто определяем статус
+        return Response(Status.Ok, ':' .join(get_all_files()))
+
+    return Response(Status.Error, 'Unknown command')
 
 
 # Написать функцию process(обработка)
