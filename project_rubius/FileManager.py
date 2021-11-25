@@ -16,7 +16,7 @@ def get_all_files() -> Iterable[File]:
     return LIST_OF_FILES.values()  # Метод .values() - вернуть все значения
 
 
-def add_file(server: File):  # В скобках указываем то, что функция должная принять
+def add_file(server: File):  # В скобках указываем то, что функция должная принять на вход
     LIST_OF_FILES[server.id] = server  # [server.id], id - is key
 
 
