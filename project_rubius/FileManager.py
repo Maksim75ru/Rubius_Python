@@ -50,7 +50,7 @@ class FileManager:
 
 
 if __name__ == '__main__':
-    main_storage = Storage("~/data_storage")
+    main_storage: ReadOnlyStorage = Storage("~/data_storage")
 
     personal_file_manager = FileManager('personal', main_storage)
     personal_file_manager.add_file(File(0, "user_1", "file_1"))
