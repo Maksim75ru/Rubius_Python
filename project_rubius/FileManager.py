@@ -11,8 +11,9 @@ class File:  # Класс это некоторое описание типа. �
 
 # Этот класс занимается хранением файлов
 class FileStorage:
-    def __init__(self):
+    def __init__(self, folder: str):
         self.__files = {}
+        self. __folder = folder  # одни папки будут храниться в других папках
 
     def get_all(self) -> Iterable[File]:
         return self.__files.values()  # Метод .values() - вернуть все значения
@@ -28,9 +29,9 @@ class FileStorage:
 
 # Этот класс занимается управлением файлами(добавить, удалить и т.д.).
 class FileManager:
-    def __init__(self, name: str):
+    def __init__(self, name: str, storage: FileStorage):
         self.__name = name
-        self.__storage = FileStorage()
+        self.__storage = storage
 
     def get_all_files(self):
         return self.__storage.get_all()  # Метод .values() - вернуть все значения
@@ -45,14 +46,20 @@ class FileManager:
 
 
 if __name__ == '__main__':
-    personal_file_manager = FileManager('personal')
+    main_storage = FileStorage("~/data_storage")
+
+    personal_file_manager = FileManager('personal', main_storage)
     personal_file_manager.add_file(File(0, "user_1", "file_1"))
     personal_file_manager.add_file(File(1, "user_2", "file_2"))
     print(personal_file_manager.get_all_files())
 
-    work_files_manager = FileManager('work')
+    work_files_manager = FileManager('work', main_storage)
 
     f = File(1, "user_1", "file_2")
     print(f.data)
     work_files_manager.add_file(f)
     print(work_files_manager.get_all_files())
+
+    # Тесты
+    tmp_storage = FileStorage("/tmp/tests/data_storage")
+    assert len(tmp_storage.get_all()) == 0
