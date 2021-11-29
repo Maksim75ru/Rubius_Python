@@ -22,7 +22,7 @@ class WriteOnlyStorage(BaseStorage):
 
     def delete_one(self,
                    file_id: int):  # file_id - назвали так, потому что в Python есть встроенная функция id/ Поэтому file_id
-        del self._files[file_id]  # del is key word
+        del self._files[file_id]  # del is key word для удаления
 
 
 # Этот класс занимается хранением файлов
